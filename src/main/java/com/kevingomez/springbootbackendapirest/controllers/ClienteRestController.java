@@ -3,10 +3,8 @@ package com.kevingomez.springbootbackendapirest.controllers;
 import com.kevingomez.springbootbackendapirest.models.DAO.Services.ClienteServiceInterface;
 import com.kevingomez.springbootbackendapirest.models.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,8 +16,62 @@ public class ClienteRestController {
     @Autowired
     private ClienteServiceInterface clienteService;
 
-    @GetMapping("/clientes")  // Peticion de tipo get
-    public List<Cliente> index(){
+    /**
+     * Metodo para retornar todos los clientes
+     *
+     * @return Lista de clientes
+     */
+    @GetMapping("/clientes")
+    public List<Cliente> index(){  //Peticion de tipo get
         return clienteService.findAll();
+    }
+
+    /**
+     * Metodo para retornar un cliente en especifico por id
+     *
+     * @param id ID del cliente a buscar
+     * @return Cliente cuyo ID es el buscado
+     */
+    @GetMapping("/clientes/{id}")
+    public Cliente show(@PathVariable int id){ return clienteService.findById(id); }
+
+    /**
+     * Metodo para crear un nuevo cliente
+     *
+     * @param cliente Cliente a crear
+     * @return Cliente guardado
+     */
+
+    @PostMapping("/clientes") // Se utiliza para crear un nuevo cliente
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente create(@RequestBody Cliente cliente){ return clienteService.save(cliente); } // RequestBody porque viene en formato json
+
+    /**
+     * Metodo para actualizar un cliente
+     *
+     * @param id ID del cliente a actualizar
+     * @return Cliente actualizado
+     */
+    @PutMapping("/clientes/{id}")  // Se utiliza para actualizar un cliente
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente update(@RequestBody Cliente cliente, @PathVariable int id){
+        Cliente clienteActual = clienteService.findById(id);
+
+        clienteActual.setclientName (cliente.getclientName());
+        clienteActual.setEmail (cliente.getEmail());
+        clienteActual.setLastName (cliente.getLastName());
+
+        return clienteService.save(clienteActual);
+    }
+
+    /**
+     * Metodo para borar un cliente de la BBDD
+     *
+     * @param id ID del cliente a borrar
+     */
+    @DeleteMapping("/clientes/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id){
+        clienteService.delete(id);
     }
 }
