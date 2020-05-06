@@ -5,5 +5,9 @@ import com.kevingomez.springbootbackendapirest.models.entity.Cliente;
 import java.util.List;
 
 public interface ClienteServiceInterface {
-    public List<Cliente> findAll();
+    List<Cliente> findAll();
+    Cliente findById(int id);
+    Cliente save (Cliente cliente);
+    void delete(int id);
+
 }
