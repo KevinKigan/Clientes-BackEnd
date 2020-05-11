@@ -60,12 +60,25 @@ public class ClienteRestController {
      * Metodo para crear un nuevo cliente
      *
      * @param cliente Cliente a crear
-     * @return Cliente guardado
+     * @return ResponseEntity. Nos Permite pasar un mensaje de error y nuestro objeto entity a la respuesta
      */
 
     @PostMapping("/clientes") // Se utiliza para crear un nuevo cliente
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente create(@RequestBody Cliente cliente){ return clienteService.save(cliente); } // RequestBody porque viene en formato json
+    public ResponseEntity<?> create(@RequestBody Cliente cliente){
+        Cliente clienteNew;
+        Map<String, Object> response = new HashMap<>();
+        try{
+            clienteNew = clienteService.save(cliente);
+        }catch (DataAccessException e){
+            response.put("mensaje", "Error al realizar el insert en la base de datos");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.put("mensaje","El cliente ha sido creado con exito");
+        response.put("cliente", clienteNew);
+        return new ResponseEntity<Map>(response, HttpStatus.CREATED);
+    } // RequestBody porque viene en formato json
 
     /**
      * Metodo para actualizar un cliente
