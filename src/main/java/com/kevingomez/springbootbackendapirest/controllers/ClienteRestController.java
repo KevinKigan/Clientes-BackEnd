@@ -113,14 +113,27 @@ public class ClienteRestController {
         return new ResponseEntity<Map>(response, HttpStatus.CREATED);
     }
 
+
     /**
      * Metodo para borar un cliente de la BBDD
      *
      * @param id ID del cliente a borrar
+     * @return ResponseEntity. Nos Permite pasar un mensaje de error y nuestro objeto entity a la respuesta
      */
     @DeleteMapping("/clientes/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id){
-        clienteService.delete(id);
+
+    public ResponseEntity<?> delete(@PathVariable int id) {
+
+
+        Map<String, Object> response = new HashMap<>();
+        try{
+            clienteService.delete(id);
+        }catch (DataAccessException e){
+            response.put("mensaje", "Error al eliminar el cliente de la base de datos");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.put("mensaje","El cliente ha sido eliminado con exito");
+        return new ResponseEntity<Map>(response, HttpStatus.OK);
     }
 }
