@@ -34,25 +34,26 @@ public class ClienteRestController {
      * Metodo para retornar un cliente en especifico por id
      *
      * @param id ID del cliente a buscar
-     * @return Cliente cuyo ID es el buscado
+     * @return ResponseEntity. Nos Permite pasar un mensaje de error y nuestro objeto entity a la respuesta
      */
+
     @GetMapping("/clientes/{id}")
     public ResponseEntity<?> show(@PathVariable int id){
-        Cliente cliente = null;
+        Cliente cliente;
         Map<String, Object> response = new HashMap<>();
         try{
             cliente =clienteService.findById(id);
         }catch (DataAccessException e){
             response.put("mensaje", "Error al realizar la consulta en la base de datos");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         if(cliente == null){
             response.put("mensaje", "El cliente ID: ".concat(Integer.toString(id).concat(" no existe en la base de datos")));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
 
     /**
