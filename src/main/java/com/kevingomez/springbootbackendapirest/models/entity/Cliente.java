@@ -22,6 +22,10 @@ public class Cliente implements Serializable {
     @Temporal(TemporalType.DATE) // Temporal indica cual va a ser el tipo equivalente en la bbdd
     private Date createAt;
 
+    @PrePersist
+    public void prePersist(){
+        createAt = new Date();
+    }
 
     public int getId() {
         return id;
