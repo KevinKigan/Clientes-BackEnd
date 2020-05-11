@@ -11,11 +11,11 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // El valor del id se genera de manera autoincremental
     private int id;
     // Las tres siguientes variables son columnas pero si se llaman igual que en la bbdd no hace falta poner @Column
-    @Column(name = "client_name")
+    @Column(name = "client_name", nullable = false)
     private String clientName;
     @Column(name = "last_name")
     private String lastName;
-
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(name = "create_at")
