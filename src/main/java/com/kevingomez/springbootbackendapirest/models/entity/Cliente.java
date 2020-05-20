@@ -1,6 +1,9 @@
 package com.kevingomez.springbootbackendapirest.models.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,15 +14,23 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // El valor del id se genera de manera autoincremental
     private int id;
     // Las tres siguientes variables son columnas pero si se llaman igual que en la bbdd no hace falta poner @Column
+
+    @NotEmpty
+    @Size(min = 3, max = 20)
     @Column(name = "client_name", nullable = false)
     private String clientName;
+
+    @NotEmpty
     @Column(name = "last_name")
     private String lastName;
+
+    @NotEmpty
+    @Email
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "create_at")
     @Temporal(TemporalType.DATE) // Temporal indica cual va a ser el tipo equivalente en la bbdd
+    @Column(name = "create_at")
     private Date createAt;
 
     @PrePersist
