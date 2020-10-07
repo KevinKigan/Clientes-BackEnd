@@ -3,6 +3,8 @@ package com.kevingomez.springbootbackendapirest.models.DAO.Services;
 import com.kevingomez.springbootbackendapirest.models.DAO.ClienteDAOInterface;
 import com.kevingomez.springbootbackendapirest.models.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -17,6 +19,11 @@ public class ClienteService implements ClienteServiceInterface {
     @Transactional(readOnly = true) //Select solo de lectura
     public List<Cliente> findAll() {
         return (List<Cliente>) clienteDAO.findAll();
+    }
+
+    @Override
+    public Page<Cliente> findAll(Pageable pageable) {
+        return clienteDAO.findAll(pageable);
     }
 
     @Override

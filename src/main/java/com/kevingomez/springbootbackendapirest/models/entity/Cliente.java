@@ -1,6 +1,13 @@
 package com.kevingomez.springbootbackendapirest.models.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,21 +18,28 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // El valor del id se genera de manera autoincremental
     private int id;
     // Las tres siguientes variables son columnas pero si se llaman igual que en la bbdd no hace falta poner @Column
+
+    @NotEmpty(message = "El campo no puede estar vacio")
+    @Size(min = 3, max = 20)
     @Column(name = "client_name", nullable = false)
     private String clientName;
+
+    @NotEmpty(message = "El campo no puede estar vacio")
+    @Size(min = 3, max = 20)
     @Column(name = "last_name")
     private String lastName;
-    @Column(nullable = false, unique = true)
+
+    @NotEmpty(message = "El campo no puede estar vacio")
+    @Email(message = "Tiene que ser una direccion de correo bien formada")
+    @Column(nullable = false, unique = false)
     private String email;
 
-    @Column(name = "create_at")
+    @NotNull
     @Temporal(TemporalType.DATE) // Temporal indica cual va a ser el tipo equivalente en la bbdd
+    @Column(name = "create_at")
     private Date createAt;
 
-    @PrePersist
-    public void prePersist(){
-        createAt = new Date();
-    }
+    private String photo;
 
     public int getId() {
         return id;
@@ -66,6 +80,10 @@ public class Cliente implements Serializable {
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
+
+    public String getPhoto() { return photo; }
+
+    public void setPhoto(String photo) { this.photo = photo; }
 
     private static final long serialVersionUID = 1L;
 }
