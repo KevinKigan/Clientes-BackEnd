@@ -2,6 +2,7 @@ package com.kevingomez.springbootbackendapirest.models.DAO.Services;
 
 
 import com.kevingomez.springbootbackendapirest.models.entity.Cliente;
+import com.kevingomez.springbootbackendapirest.models.entity.Region;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,5 +14,6 @@ public interface ClienteServiceInterface {
     Cliente findById(int id);
     Cliente save (Cliente cliente);
     void delete(int id);
+    List<Region> findAllRegions();
 
 }

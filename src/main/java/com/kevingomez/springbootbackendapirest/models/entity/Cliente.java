@@ -1,5 +1,6 @@
 package com.kevingomez.springbootbackendapirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,6 +41,18 @@ public class Cliente implements Serializable {
     private Date createAt;
 
     private String photo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    @NotNull(message = "La region no puede estar vacia")
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    private Region region;
+
+
+
+    public Region getRegion() { return region; }
+
+    public void setRegion(Region region) { this.region = region; }
 
     public int getId() {
         return id;

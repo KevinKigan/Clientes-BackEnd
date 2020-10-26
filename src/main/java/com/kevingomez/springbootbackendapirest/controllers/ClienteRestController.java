@@ -3,6 +3,7 @@ package com.kevingomez.springbootbackendapirest.controllers;
 import com.kevingomez.springbootbackendapirest.models.DAO.Services.ClienteServiceInterface;
 import com.kevingomez.springbootbackendapirest.models.DAO.Services.UploadFileServiceInterface;
 import com.kevingomez.springbootbackendapirest.models.entity.Cliente;
+import com.kevingomez.springbootbackendapirest.models.entity.Region;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,6 +160,7 @@ public class ClienteRestController {
             clienteActual.setclientName(cliente.getclientName());
             clienteActual.setEmail(cliente.getEmail());
             clienteActual.setLastName(cliente.getLastName());
+            clienteActual.setRegion(cliente.getRegion());
             clienteUpdated = clienteService.save(clienteActual);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
@@ -254,5 +256,15 @@ public class ClienteRestController {
     public void findAndDeletePhoto(Cliente cliente) {
         String lastFileName = cliente.getPhoto();
         uploadFileService.delete(lastFileName);
+    }
+
+    /**
+     * Metodo para retornar todos las regiones
+     *
+     * @return Lista de regiones
+     */
+    @GetMapping("/clientes/regiones")
+    public List<Region> listRegions() {  //Peticion de tipo get
+        return clienteService.findAllRegions();
     }
 }
