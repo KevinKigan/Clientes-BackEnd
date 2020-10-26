@@ -2,6 +2,7 @@ package com.kevingomez.springbootbackendapirest.models.DAO.Services;
 
 import com.kevingomez.springbootbackendapirest.models.DAO.ClienteDAOInterface;
 import com.kevingomez.springbootbackendapirest.models.entity.Cliente;
+import com.kevingomez.springbootbackendapirest.models.entity.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,5 +43,11 @@ public class ClienteService implements ClienteServiceInterface {
     @Transactional
     public void delete(int id) {
         clienteDAO.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Region> findAllRegions() {
+        return clienteDAO.findAllRegions();
     }
 }
