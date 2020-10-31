@@ -1,5 +1,7 @@
 package com.kevingomez.springbootbackendapirest.models.entity;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,8 +12,8 @@ public class Rol implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, length = 20)
-    private String name;
+    @Column(name = "rol_name",unique = true, length = 20)
+    private String rolName;
 
     public int getId() {
         return id;
@@ -21,11 +23,11 @@ public class Rol implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRolName() {
+        return rolName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRolName(String rolName) {
+        this.rolName = rolName;
     }
 }

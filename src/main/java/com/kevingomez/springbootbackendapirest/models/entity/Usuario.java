@@ -24,7 +24,8 @@ public class Usuario implements Serializable {
         @JoinTable(name = "user_auhorities", joinColumns=@JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // Si se elimina al usuario, se eliminan sus roles e igual para la creacion
-    @JoinTable(uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id","roles_id"})})
+    //@JoinTable(uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id","rol_id"})})
+    @JoinTable(name = "usuarios_roles", joinColumns=@JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private List<Rol> roles;
 
 
