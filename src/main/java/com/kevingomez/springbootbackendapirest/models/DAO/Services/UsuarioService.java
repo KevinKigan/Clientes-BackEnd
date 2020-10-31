@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService implements UserDetailsService, UsuarioServiceInterface {
     private static Logger log = LoggerFactory.getLogger(UsuarioService.class);
 
     @Autowired
@@ -42,5 +42,15 @@ public class UsuarioService implements UserDetailsService {
                 .peek(authority -> log.info("Rol: "+authority.getAuthority()))
                 .collect(Collectors.toList());
         return new User(user.getUsername(), user.getPassword(), user.getEnabled(), true,true, true, authorities);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    /* El transactional maneja los estados y las posibles modificacioens de los objetos cuando se hace
+    *  las consultas a db, si anotamos con readOnly, no se guardan los estados de los objetos,
+    *  por lo que no puede detectar que se han modificado y por lo tanto no los guarda en la db
+    */
+    public Usuario findByUsername(String username) {
+        return usuarioDao.findByUsername(username);
     }
 }

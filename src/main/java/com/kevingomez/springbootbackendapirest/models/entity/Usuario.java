@@ -10,13 +10,17 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(unique = true, length = 20)
     private String username;
     @Column(length = 60)
     private String password;
-
     private Boolean enabled;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(unique = true)
+    private String mail;
 
     /*
         Si quisieramos cambiar el nombre de la tabla o el de los campos, seria:
@@ -63,6 +67,30 @@ public class Usuario implements Serializable {
 
     public List<Rol> getRoles() {
         return roles;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public void setRoles(List<Rol> roles) {
