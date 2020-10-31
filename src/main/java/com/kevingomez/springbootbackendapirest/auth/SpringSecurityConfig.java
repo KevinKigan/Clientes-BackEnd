@@ -40,8 +40,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         // No se guarda el estado de la session, eso se va ha hacer metiante OAuth2 y no del lado de spring security, por eso
         // stateless, sin estado y csfr desabilitado
         http.authorizeRequests()
-//                .antMatchers(HttpMethod.GET,"/api/clientes")
-//                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

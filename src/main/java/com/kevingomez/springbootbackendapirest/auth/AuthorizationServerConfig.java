@@ -1,6 +1,7 @@
 package com.kevingomez.springbootbackendapirest.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -76,6 +77,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey(JwtConfig.PRIVATE_KEY);
+        jwtAccessTokenConverter.setVerifierKey(JwtConfig.PUBLIC_KEY);
         return jwtAccessTokenConverter;
     }
 }
