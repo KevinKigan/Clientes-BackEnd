@@ -178,3 +178,18 @@ INSERT INTO clientes (region_id, client_name, last_name, email, create_at) VALUE
 INSERT INTO clientes (region_id, client_name, last_name, email, create_at) VALUES(1,'Magma', 'Lee', 'magma.lee@gmail.com', '2018-03-04');
 INSERT INTO clientes (region_id, client_name, last_name, email, create_at) VALUES(1,'Tornado', 'Roe', 'tornado.roe@gmail.com', '2018-03-05');
 INSERT INTO clientes (region_id, client_name, last_name, email, create_at) VALUES(1,'Jade', 'Doe', 'jane.doe@gmail.com', '2018-03-06');
+
+
+INSERT INTO usuarios (username, password, enabled, first_name, last_name, mail) VALUES('Rube', '$2a$10$SXn62ud0UOwWlQsG9VmGEeTRgvJRdlWITczJ4hSHSd57VI51lu1q6',1,'Ruben', 'Garcia', 'ruben@gmail.com');
+INSERT INTO usuarios (username, password, enabled, first_name, last_name, mail) VALUES('admin', '$2a$10$D/lG80eJeOV2dDJtzrXTgO5BHZvC7LuszU.RAqH39WhSxQH.sYdBu',1,'KevinKigan', 'Gomez', 'kevin@gmail.com');
+
+INSERT INTO roles (rol_name) VALUES('ROLE_USER');
+INSERT INTO roles (rol_name) VALUES('ROLE_ADMIN');
+
+INSERT INTO usuarios_roles (usuario_id, rol_id) VALUES(1,1);
+INSERT INTO usuarios_roles (usuario_id, rol_id) VALUES(2,2);
+INSERT INTO usuarios_roles (usuario_id, rol_id) VALUES(2,1);
+
+
+
+
