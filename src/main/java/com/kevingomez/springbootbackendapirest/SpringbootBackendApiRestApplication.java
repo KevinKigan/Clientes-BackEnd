@@ -21,7 +21,7 @@ public class SpringbootBackendApiRestApplication implements CommandLineRunner {
 		String password = "xdfyhjsdgr";
 		for (int i = 0; i<4 ;i++){
 			String passwordBCrypt = passwordEncoder.encode(password);
-			System.out.println(passwordBCrypt);
+			//System.out.println(passwordBCrypt);
 		}
 	}
 }
