@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -72,6 +73,7 @@ public class ClienteRestController {
      * @return ResponseEntity. Nos Permite pasar un mensaje de error y nuestro objeto entity a la respuesta
      */
 
+    @Secured({"ROLE_ADMIN","ROLE_USER"})
     @GetMapping("/clientes/{id}")
     public ResponseEntity<?> show(@PathVariable int id) {
         Cliente cliente;
@@ -99,6 +101,7 @@ public class ClienteRestController {
      * @return ResponseEntity. Nos Permite pasar un mensaje de error y nuestro objeto entity a la respuesta
      */
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/clientes") // Se utiliza para crear un nuevo cliente
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@Valid @RequestBody Cliente cliente, BindingResult bindingResult) {
@@ -139,6 +142,7 @@ public class ClienteRestController {
      * @param id ID del cliente a actualizar
      * @return ResponseEntity. Nos Permite pasar un mensaje de error y nuestro objeto entity a la respuesta
      */
+    @Secured("ROLE_ADMIN")
     @PutMapping("/clientes/{id}")  // Se utiliza para actualizar un cliente
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> update(@Valid @RequestBody Cliente cliente, BindingResult bindingResult, @PathVariable int id) {
@@ -186,7 +190,7 @@ public class ClienteRestController {
      * @return ResponseEntity. Nos Permite pasar un mensaje de error y nuestro objeto entity a la respuesta
      */
     @DeleteMapping("/clientes/{id}")
-
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<?> delete(@PathVariable int id) {
 
 
@@ -212,6 +216,8 @@ public class ClienteRestController {
      * @param id
      * @return
      */
+
+    @Secured({"ROLE_ADMIN","ROLE_USER"})
     @PostMapping("/clientes/upload")
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) {
         Map<String, Object> response = new HashMap<>();
@@ -248,6 +254,7 @@ public class ClienteRestController {
 
     }
 
+
     /**
      * Metodo para buscar si el cliente tiene foto y borrarla si la posee
      *
@@ -263,6 +270,7 @@ public class ClienteRestController {
      *
      * @return Lista de regiones
      */
+    @Secured("ROLE_ADMIN")
     @GetMapping("/clientes/regiones")
     public List<Region> listRegions() {  //Peticion de tipo get
         return clienteService.findAllRegions();
