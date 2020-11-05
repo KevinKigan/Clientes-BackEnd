@@ -73,7 +73,7 @@ public class ClienteRestController {
      * @return ResponseEntity. Nos Permite pasar un mensaje de error y nuestro objeto entity a la respuesta
      */
 
-    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    //@Secured({"ROLE_ADMIN","ROLE_USER"})
     @GetMapping("/clientes/{id}")
     public ResponseEntity<?> show(@PathVariable int id) {
         Cliente cliente;

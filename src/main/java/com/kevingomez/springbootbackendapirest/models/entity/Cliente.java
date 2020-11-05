@@ -47,10 +47,11 @@ public class Cliente implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     @NotNull(message = "La region no puede estar vacia")
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"}) // Esto se hace pro el fecth lazy
     private Region region;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL) // Un cliente tiene muchas facturas
+    @JsonIgnoreProperties({"cliente","hibernateLazyInitializer","handler"})
     private List<Factura> facturas;
 
     public Cliente() {

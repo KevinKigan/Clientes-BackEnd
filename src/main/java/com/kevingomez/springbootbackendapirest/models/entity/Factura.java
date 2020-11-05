@@ -1,11 +1,15 @@
 package com.kevingomez.springbootbackendapirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "Facturas")
+@Table(name = "facturas")
 public class Factura implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +24,29 @@ public class Factura implements Serializable {
     private Date createAt;
 
     @ManyToOne(fetch = FetchType.LAZY) //Muchas facturas estan asociadas a un cliente
+    @JsonIgnoreProperties({"facturas"})
     private Cliente cliente;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "factura_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    private List<ItemFactura> items;
+
+    public Factura() {
+        items = new ArrayList<>();
+    }
 
     @PrePersist
     public void prePersist(){
         this.createAt = new Date();
+    }
+
+    public Double getTotal(){
+        double total = 0.00;
+        for (ItemFactura item: items) {
+            total+= item.getPrice();
+        }
+        return total;
     }
 
     public int getId() {
@@ -65,6 +87,14 @@ public class Factura implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public List<ItemFactura> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemFactura> items) {
+        this.items = items;
     }
 }
 
