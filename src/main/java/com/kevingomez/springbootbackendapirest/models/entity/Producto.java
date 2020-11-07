@@ -2,6 +2,8 @@ package com.kevingomez.springbootbackendapirest.models.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -20,8 +22,13 @@ public class Producto implements Serializable {
     private Date createAt;
 
     @PrePersist
-    public void prePersist(){
-        this.createAt = new Date();
+    public void prePersist() throws ParseException {
+//        Date objDate = new Date();
+//        String strDateFormat = "aaaa-MM-dd";
+//        SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat); // La cadena de formato de fecha se pasa como un argumento al objeto
+//        System.out.println("Fecha -> "+objSDF.parse(objSDF.format(objDate)));
+//        this.createAt = objSDF.parse(objSDF.format(objDate));
+
     }
 
     public Producto() {

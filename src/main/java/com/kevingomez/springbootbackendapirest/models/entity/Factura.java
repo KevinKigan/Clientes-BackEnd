@@ -24,13 +24,14 @@ public class Factura implements Serializable {
     private Date createAt;
 
     @ManyToOne(fetch = FetchType.LAZY) //Muchas facturas estan asociadas a un cliente
-    @JsonIgnoreProperties({"facturas"})
+    @JsonIgnoreProperties({"facturas","hibernateLazyInitializer","handler"})
     private Cliente cliente;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "factura_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     private List<ItemFactura> items;
+
 
     public Factura() {
         items = new ArrayList<>();
