@@ -10,7 +10,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Clientes") // Esto no es necesario si la clase se llama igual que la tabla
@@ -45,10 +47,16 @@ public class Cliente implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     @NotNull(message = "La region no puede estar vacia")
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"}) // Esto se hace pro el fecth lazy
     private Region region;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL) // Un cliente tiene muchas facturas
+    @JsonIgnoreProperties(value={"facturas","hibernateLazyInitializer","handler"}, allowSetters = true)
+    private List<Factura> facturas;
 
+    public Cliente() {
+        this.facturas = new ArrayList<>();
+    }
 
     public Region getRegion() { return region; }
 
@@ -99,4 +107,12 @@ public class Cliente implements Serializable {
     public void setPhoto(String photo) { this.photo = photo; }
 
     private static final long serialVersionUID = 1L;
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
+    }
 }
