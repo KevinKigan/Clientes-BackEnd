@@ -51,7 +51,7 @@ public class Cliente implements Serializable {
     private Region region;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL) // Un cliente tiene muchas facturas
-    @JsonIgnoreProperties({"cliente","hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties(value={"facturas","hibernateLazyInitializer","handler"}, allowSetters = true)
     private List<Factura> facturas;
 
     public Cliente() {
