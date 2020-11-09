@@ -239,6 +239,13 @@ public class ClienteRestController {
         return new ResponseEntity<Map>(response, HttpStatus.CREATED);
     }
 
+
+    /**
+     * Metodo para obtener la foto del cliente
+     *
+     * @param namePhoto
+     * @return
+     */
     @GetMapping("uploads/img/{namePhoto:.+}")
     // :.+ Indica que la foto tiene un nombre y una extension que puede ser cualquiera
     public ResponseEntity<Resource> showPhoto(@PathVariable String namePhoto) {

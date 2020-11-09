@@ -1,5 +1,9 @@
 package com.kevingomez.springbootbackendapirest.auth;
 
+/**
+ * Clase de configuracion de las keys
+ *
+ */
 public class JwtConfig {
     static final String SECRET_KEY="";
     static final String PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n" +

@@ -19,6 +19,14 @@ import java.util.Arrays;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
+    /**
+     * Metodo de configuracion de seguridad de las rutas. Se especifica
+     * que permisos se necesitan para acceder a dada ruta
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()

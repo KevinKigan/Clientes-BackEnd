@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
+/**
+ * Clase de servicio para manejar los clientes
+ */
+
 @Service
 public class ClienteService implements ClienteServiceInterface {
 

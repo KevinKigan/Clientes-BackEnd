@@ -17,6 +17,12 @@ public class FacturaRestController {
     @Autowired
     private FacturaServiceInterface facturaService;
 
+    /**
+     * Metodo para mostrar la factura
+     *
+     * @param id
+     * @return
+     */
     @Secured({"ROLE_ADMIN","ROLE_USER"})
     @GetMapping("/facturas/{id}")
     @ResponseStatus(code = HttpStatus.OK)
@@ -24,6 +30,11 @@ public class FacturaRestController {
         return facturaService.findById(id);
     }
 
+    /**
+     * metodo para borrar la factura
+     *
+     * @param id
+     */
     @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/facturas/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
@@ -31,6 +42,12 @@ public class FacturaRestController {
         facturaService.delete(id);
     }
 
+    /**
+     * Metodo para filtrar los productos segun la busqueda
+     *
+     * @param term
+     * @return
+     */
     @Secured({"ROLE_ADMIN"})
     @GetMapping("/facturas/filtrar-productos/{term}")
     @ResponseStatus(code = HttpStatus.OK)
@@ -38,6 +55,12 @@ public class FacturaRestController {
         return facturaService.findByProductNameContainingIgnoreCase(term );
     }
 
+    /**
+     * Metodo para crear la factura
+     *
+     * @param factura
+     * @return
+     */
     @Secured({"ROLE_ADMIN"})
     @PostMapping("/facturas")
     @ResponseStatus(code = HttpStatus.CREATED)

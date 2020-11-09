@@ -18,6 +18,13 @@ public class AdditionalInfoToken implements TokenEnhancer {
     @Autowired
     private UsuarioServiceInterface usuarioService;
 
+    /**
+     * Metodo para añadir informacion sobre el cliente
+     *
+     * @param oAuth2AccessToken
+     * @param oAuth2Authentication
+     * @return
+     */
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
         Usuario user = usuarioService.findByUsername(oAuth2Authentication.getName());
